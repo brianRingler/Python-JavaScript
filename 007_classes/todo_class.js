@@ -5,40 +5,63 @@ class TodoManager {
     getCompleted(){
         let completed = []
         for (let i = 0; this.todos.length; i++){
+            console.log(`${i} <> ${this.todos[i]['is_completed']}`)
             if (this.todos[i]['is_completed'] === true){
-              completed.push(this.todos[i]['title']);
-            }
-          return completed;
+              //completed.push(this.todos[i]['title']);
+              completed.push(this.todos[i]);
+              
+            };
+          return completed
         }
-    }
+    };
     getPending(){
         let pending = []
         for (let i = 0; this.todos.length; i++){
             if (this.todos[i]['is_completed'] === false){
-                pending.push(this.todos[i]['title']);
-            }
+                //pending.push(this.todos[i]['title']);
+                pending.push(this.todos[i]);
+            };
           return pending;
         }
     };
+
     getFirst(){
-      //break
+      return this.todos[0];
     }
+
     getLast(){
-      //break
+      return this.todos[this.todos.length - 1]
     }
+
     getCount(){
-      //break
+      return this.todos.length;
     }
-    markAsCompleted(){
-      //break
-    } 
-    add(){
-      //break
+
+    markAsCompleted(done){
+      for(i=0; done.length; i++){
+        if(this.todos[i]['title'] === done){
+          this.todos[i]['is_completed'] === true;
+        };
+      }
+    };
+
+    add(toAdd){
+      this.todos.push(toAdd);
     }
     allCompleted(){
-      //break
+      let check = (bool) => bool === true;
+      return this.todos['is_completed'].every(check)
     }
-}
+    allPending(){
+      let check = (bool) => bool === false;
+      return this.todos['is_completed'].every(check)  
+      }
+      exportCsv(){
+        return this.todos['is_completed'].join(', ')
+      }
+    }
+      
+
 
 try {
   const initialTodos = [{
@@ -69,5 +92,5 @@ try {
   console.log(todoManager.exportCsv()); //returns Comma Separated Values of titles "Todo title, Another todo title"
 
 } catch (error) {
-  // catch any errors 
+  console.log("Error");
 }
